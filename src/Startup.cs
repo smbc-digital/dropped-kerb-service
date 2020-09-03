@@ -9,8 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StockportGovUK.AspNetCore.Availability;
 using StockportGovUK.AspNetCore.Availability.Middleware;
-using StockportGovUK.NetStandard.Gateways;
+using StockportGovUK.AspNetCore.Middleware;
 using StockportGovUK.NetStandard.Gateways.Extensions;
+using StockportGovUK.NetStandard.Gateways.MailingService;
+using StockportGovUK.NetStandard.Gateways.VerintService;
 
 namespace dropped_kerb_service
 {
@@ -29,31 +31,44 @@ namespace dropped_kerb_service
             services.AddControllers()
                     .AddNewtonsoftJson();
             services.AddStorageProvider(Configuration);
-            services.AddHttpClient<IGateway, Gateway>(Configuration, "IGatewayConfig");
+
+            services.AddHttpClient<IVerintServiceGateway, VerintServiceGateway>(Configuration);
+            services.AddHttpClient<IMailingServiceGateway, MailingServiceGateway>(Configuration);
+
             services.AddAvailability();
-            services.AddSwagger();
+
+            services.RegisterServices()
+                .RegisterIOptions(Configuration)
+                .AddSwagger();
+
             services.AddHealthChecks()
                     .AddCheck<TestHealthCheck>("TestHealthCheck");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseExceptionHandler($"/api/v1/error{(env.IsDevelopment() ? "/local" : string.Empty)}");
-
-            app.UseMiddleware<Availability>();
+            if (env.IsEnvironment("local"))
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-            
             app.UseEndpoints(endpoints => endpoints.MapControllers());
-            
+
+            app.UseMiddleware<Availability>();
+            app.UseMiddleware<ApiExceptionHandling>();
+
             app.UseHealthChecks("/healthcheck", HealthCheckConfig.Options);
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("v1/swagger.json", "dropped_kerb_service API");
+                c.SwaggerEndpoint("v1/swagger.json", "Dropped Kerb Service API");
             });
         }
     }
