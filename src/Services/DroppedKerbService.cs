@@ -38,7 +38,7 @@ namespace dropped_kerb_service.Services
             if (!streetResult.IsSuccessStatusCode)
                 throw new Exception("DroppedKerbService.CreateCase: GetStreet status code not successful");
 
-            // confrim uses the USRN for the street,
+            // confirm uses the USRN for the street,
             // however Verint uses the verint-address-id (Reference) (kerbRequest.StreetAddress.PlaceRef) for streets
             crmCase.Street.USRN = streetResult.ResponseContent.USRN;
 
@@ -56,11 +56,11 @@ namespace dropped_kerb_service.Services
                     Phone = kerbRequest.Phone
                 };
 
-                //_mailHelper.SendEmail(
-                //    person, kerbRequest,
-                //    EMailTemplate.kerbRequest,
-                //    response.ResponseContent.VerintCaseReference,
-                //    kerbRequest.StreetAddress);
+                _mailHelper.SendEmail(
+                    person,
+                    EMailTemplate.StreetReport,
+                    response.ResponseContent.VerintCaseReference,
+                    kerbRequest.StreetAddressDroppedKerb);
 
                 return response.ResponseContent.VerintCaseReference;
             }

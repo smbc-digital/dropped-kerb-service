@@ -1,6 +1,10 @@
+using dropped_kerb_service.Models;
+using dropped_kerb_service.Services;
 using Microsoft.AspNetCore.Mvc;
 using StockportGovUK.AspNetCore.Attributes.TokenAuthentication;
 using StockportGovUK.AspNetCore.Availability.Managers;
+using System;
+using System.Threading.Tasks;
 
 namespace dropped_kerb_service.Controllers
 {
@@ -10,23 +14,24 @@ namespace dropped_kerb_service.Controllers
     [TokenAuthentication]
     public class HomeController : ControllerBase
     {
-        private IAvailabilityManager _availabilityManager;
-        
-        public HomeController(IAvailabilityManager availabilityManager)
-        {
-            _availabilityManager = availabilityManager;
-        }
+        //private IAvailabilityManager _availabilityManager;
+        private readonly IDroppedKerbService _droppedKerbService;
 
-        [HttpGet]
-        public IActionResult Get()
+        public HomeController(IDroppedKerbService droppedKerbService)
         {
-            return Ok();
+            // _availabilityManager = availabilityManager;
+            _droppedKerbService = droppedKerbService;
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public async Task<IActionResult> Post([FromBody] DroppedKerbRequest droppedKerbRequest)
         {
-            return Ok();
+            if (!ModelState.IsValid)
+                throw new ArgumentException("Invalid request parameters.");
+
+            //return Ok();
+
+            return Ok(await _droppedKerbService.CreateCase(droppedKerbRequest));
         }
     }
 }
