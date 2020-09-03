@@ -3,8 +3,9 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StockportGovUK.NetStandard.Gateways.MailingService;
 using StockportGovUK.NetStandard.Models.Addresses;
-using StockportGovUK.NetStandard.Models.Mail;
 using StockportGovUK.NetStandard.Models.Enums;
+using StockportGovUK.NetStandard.Models.Mail;
+using StockportGovUK.NetStandard.Models.Models.StreetReport;
 
 namespace dropped_kerb_service.Helpers
 {
@@ -21,11 +22,12 @@ namespace dropped_kerb_service.Helpers
 
         public void SendEmail(Person person, EMailTemplate template, string caseReference, Address street)
         {
-            BaseMailModel submissionDetails = new BaseMailModel();
+            StreetReportMailModel submissionDetails = new StreetReportMailModel();
             _logger.LogInformation(caseReference, street, person);
             submissionDetails.Subject = "Dropped kerb request - submission";
-            submissionDetails.TemplateName = caseReference;
-            submissionDetails.Content = street.SelectedAddress;
+            submissionDetails.FormType = FormType.request;
+            submissionDetails.ConcerningDescription = "a dropped kerb";
+            submissionDetails.StreetInput = street.SelectedAddress;
             submissionDetails.RecipientAddress = person.Email;
 
             _mailingServiceGateway.Send(new Mail

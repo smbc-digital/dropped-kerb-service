@@ -1,48 +1,46 @@
 using dropped_kerb_service.Controllers;
+using dropped_kerb_service.Models;
+using dropped_kerb_service.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using StockportGovUK.AspNetCore.Availability.Managers;
 using Xunit;
 
-namespace dropped_kerb_service_tests.Controllers
+namespace fly_posting_service_tests.Controllers
 {
     public class HomeControllerTests
     {
         private readonly HomeController _homeController;
-        private readonly Mock<IAvailabilityManager> _mockAvailabilityManager = new Mock<IAvailabilityManager>();
+        private readonly Mock<IDroppedKerbService> _mockDroppedKerbService = new Mock<IDroppedKerbService>();
 
         public HomeControllerTests()
         {
-            _homeController = new HomeController(_mockAvailabilityManager.Object);
+            _homeController = new HomeController(_mockDroppedKerbService.Object);
         }
 
         [Fact]
-        public void Get_ShouldReturnOK()
+        public async void Get_ShouldReturnOK()
         {
-            // Act
-            var response = _homeController.Get();
-            var statusResponse = response as OkResult;
-            
-            // Assert
-            Assert.NotNull(statusResponse);
-            Assert.Equal(200, statusResponse.StatusCode);
+            _mockDroppedKerbService
+                .Setup(_ => _.CreateCase(It.IsAny<DroppedKerbRequest>()))
+                .ReturnsAsync("test");
+
+            IActionResult result = await _homeController.Post(null);
+
+            _mockDroppedKerbService
+                .Verify(_ => _.CreateCase(null), Times.Once);
         }
 
         [Fact]
-        public void Post_ShouldReturnOK()
+        public async void Post_ShouldReturnOK()
         {
-            // Arrange
-            _mockAvailabilityManager
-                .Setup(_ => _.IsFeatureEnabled(It.IsAny<string>()))
-                .ReturnsAsync(true);
+            _mockDroppedKerbService
+                   .Setup(_ => _.CreateCase(It.IsAny<DroppedKerbRequest>()))
+                   .ReturnsAsync("test");
 
-            // Act
-            var response = _homeController.Post();
-            var statusResponse = response as OkResult;
-            
-            // Assert
-            Assert.NotNull(statusResponse);
-            Assert.Equal(200, statusResponse.StatusCode);
+            IActionResult result = await _homeController.Post(null);
+
+            Assert.Equal("OkObjectResult", result.GetType().Name);
         }
     }
 }
