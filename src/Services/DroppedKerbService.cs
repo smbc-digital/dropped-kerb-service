@@ -66,7 +66,7 @@ namespace dropped_kerb_service.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"DroppedKerbService.CreateCase: CRMService CreateAbandonedVehicleService an exception has occured while creating the case in verint service", ex);
+                throw new Exception($"DroppedKerbService.CreateCase: CRMService CreateDroppedKerbService an exception has occured while creating the case in verint service", ex);
             }
         }
     }

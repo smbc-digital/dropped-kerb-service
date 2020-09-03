@@ -6,7 +6,7 @@ using Moq;
 using StockportGovUK.AspNetCore.Availability.Managers;
 using Xunit;
 
-namespace fly_posting_service_tests.Controllers
+namespace dropped_kerb_service.Controllers
 {
     public class HomeControllerTests
     {
