@@ -7,14 +7,12 @@ namespace dropped_kerb_service.Models
     {
         [Required]
         public string PlanningPermission { get; set; }
-        [Required]
         public string PlanningReference { get; set; }
         public string DischargeReference { get; set; }
         [Required]
         public Address StreetAddressDroppedKerb { get; set; }
         [Required]
         public string FurtherLocationDetails { get; set; }
-        [Required]
         public string KerbLocationOther { get; set; }
         [Required]
         public string PropertyOwner { get; set; }
