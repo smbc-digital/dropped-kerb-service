@@ -55,26 +55,20 @@ namespace dropped_kerb_service.Mappers
         {
             StringBuilder description = new StringBuilder();
 
-            if (!string.IsNullOrEmpty(kerbRequest.PlanningPermission))
-                description.Append($"No. Of Posters: {kerbRequest.PlanningPermission}{Environment.NewLine}");
+            if (!string.IsNullOrEmpty(kerbRequest.kerbLocation))
+                description.Append($"Location of dropped kerb: {kerbRequest.kerbLocation}{Environment.NewLine}");
 
-            if (!string.IsNullOrEmpty(kerbRequest.PlanningReference))
-                description.Append($"Poster Description: {kerbRequest.PlanningReference}{Environment.NewLine}");
-
-            if (!string.IsNullOrEmpty(kerbRequest.DischargeReference))
-                description.Append($"Image Or Photo: {kerbRequest.DischargeReference}{Environment.NewLine}");
-
-            if (!string.IsNullOrEmpty(kerbRequest.LocationDetails))
-                description.Append($"Contact Preference: {kerbRequest.LocationDetails}{Environment.NewLine}");
-
-            if (!string.IsNullOrEmpty(kerbRequest.PropertyOwner))
-                description.Append($"No. Of Posters: {kerbRequest.PlanningPermission}{Environment.NewLine}");
+            if (!string.IsNullOrEmpty(kerbRequest.KerbLocationOther))
+                description.Append($"Location of dropped kerb: {kerbRequest.KerbLocationOther}{Environment.NewLine}");
 
             if (!string.IsNullOrEmpty(kerbRequest.AccessFor))
-                description.Append($"Poster Description: {kerbRequest.PlanningReference}{Environment.NewLine}");
+                description.Append($"Access for: {kerbRequest.PlanningReference}{Environment.NewLine}");
 
-            if (!string.IsNullOrEmpty(kerbRequest.RedundantAccessDetails))
-                description.Append($"Image Or Photo: {kerbRequest.DischargeReference}{Environment.NewLine}");
+            if (!string.IsNullOrEmpty(kerbRequest.PropertyOwner))
+                description.Append($"Property owner: {kerbRequest.PlanningPermission}{Environment.NewLine}");
+
+            if (!string.IsNullOrEmpty(kerbRequest.ContactPreference))
+                description.Append($"Contact preference: {kerbRequest.ContactPreference}{Environment.NewLine}");
 
             return description.ToString();
         }
