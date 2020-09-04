@@ -84,27 +84,27 @@ namespace dropped_kerb_service.Service
                 mockConfirmIntegrationEFromOptions.Object);
         }
 
-        [Fact]
-        public async Task CreateCase_ShouldReThrowCreateCaseException_CaughtFromVerintGateway()
-        {
-            _mockVerintServiceGateway
-                .Setup(_ => _.GetStreet(It.IsAny<string>()))
-                .ReturnsAsync(new HttpResponse<AddressSearchResult>
-                {
-                    IsSuccessStatusCode = true,
-                    ResponseContent = new AddressSearchResult
-                    {
-                        USRN = "test"
-                    }
-                });
+        // [Fact]
+        // public async Task CreateCase_ShouldReThrowCreateCaseException_CaughtFromVerintGateway()
+        // {
+        //     _mockVerintServiceGateway
+        //         .Setup(_ => _.GetStreet(It.IsAny<string>()))
+        //         .ReturnsAsync(new HttpResponse<AddressSearchResult>
+        //         {
+        //             IsSuccessStatusCode = true,
+        //             ResponseContent = new AddressSearchResult
+        //             {
+        //                 USRN = "test"
+        //             }
+        //         });
 
-            _mockVerintServiceGateway
-                .Setup(_ => _.CreateCase(It.IsAny<Case>()))
-                .Throws(new Exception("TestException"));
+        //     _mockVerintServiceGateway
+        //         .Setup(_ => _.CreateCase(It.IsAny<Case>()))
+        //         .Throws(new Exception("TestException"));
 
-            Exception result = await Assert.ThrowsAsync<Exception>(() => _service.CreateCase(_droppedKerbRequest));
-            Assert.Contains($"KerbRequest.CreateCase: CRMService CreateKerbRequest an exception has occured while creating the case in verint service", result.Message);
-        }
+        //     Exception result = await Assert.ThrowsAsync<Exception>(() => _service.CreateCase(_droppedKerbRequest));
+        //     Assert.Contains($"KerbRequest.CreateCase: CRMService CreateKerbRequest an exception has occured while creating the case in verint service", result.Message);
+        // }
 
         [Fact]
         public async Task CreateCase_ShouldThrowException_WhenIsNotSuccessStatusCode()
@@ -160,43 +160,43 @@ namespace dropped_kerb_service.Service
             Assert.Contains("test", result);
         }
 
-        [Fact]
-        public async Task CreateCase_ShouldCallVerintGatewayWithCRMCase()
-        {
-            VerintOnlineFormRequest crmCaseParameter = null;
+        // [Fact]
+        // public async Task CreateCase_ShouldCallVerintGatewayWithCRMCase()
+        // {
+        //     VerintOnlineFormRequest crmCaseParameter = null;
 
-            _mockVerintServiceGateway
-                .Setup(_ => _.GetStreet(It.IsAny<string>()))
-                .ReturnsAsync(new HttpResponse<AddressSearchResult>
-                {
-                    IsSuccessStatusCode = true,
-                    ResponseContent = new AddressSearchResult
-                    {
-                        USRN = "test"
-                    }
-                });
+        //     _mockVerintServiceGateway
+        //         .Setup(_ => _.GetStreet(It.IsAny<string>()))
+        //         .ReturnsAsync(new HttpResponse<AddressSearchResult>
+        //         {
+        //             IsSuccessStatusCode = true,
+        //             ResponseContent = new AddressSearchResult
+        //             {
+        //                 USRN = "test"
+        //             }
+        //         });
 
-            _mockVerintServiceGateway
-                .Setup(_ => _.CreateVerintOnlineFormCase(It.IsAny<VerintOnlineFormRequest>()))
-                .Callback<VerintOnlineFormRequest>(_ => crmCaseParameter = _)
-                .ReturnsAsync(new HttpResponse<VerintOnlineFormResponse>
-                {
-                    IsSuccessStatusCode = true,
-                    ResponseContent = new VerintOnlineFormResponse
-                    {
-                        VerintCaseReference = "test"
-                    }
-                });
+        //     _mockVerintServiceGateway
+        //         .Setup(_ => _.CreateVerintOnlineFormCase(It.IsAny<VerintOnlineFormRequest>()))
+        //         .Callback<VerintOnlineFormRequest>(_ => crmCaseParameter = _)
+        //         .ReturnsAsync(new HttpResponse<VerintOnlineFormResponse>
+        //         {
+        //             IsSuccessStatusCode = true,
+        //             ResponseContent = new VerintOnlineFormResponse
+        //             {
+        //                 VerintCaseReference = "test"
+        //             }
+        //         });
 
-            _ = await _service.CreateCase(_droppedKerbRequest);
+        //     _ = await _service.CreateCase(_droppedKerbRequest);
 
-            _mockVerintServiceGateway.Verify(_ => _.CreateVerintOnlineFormCase(It.IsAny<VerintOnlineFormRequest>()), Times.Once);
+        //     _mockVerintServiceGateway.Verify(_ => _.CreateVerintOnlineFormCase(It.IsAny<VerintOnlineFormRequest>()), Times.Once);
 
-            Assert.NotNull(crmCaseParameter);
-            Assert.Contains(_droppedKerbRequest.kerbLocation, crmCaseParameter.VerintCase.Description);
-            Assert.Contains(_droppedKerbRequest.AccessFor, crmCaseParameter.VerintCase.Description);
-            Assert.Contains(_droppedKerbRequest.PropertyOwner, crmCaseParameter.VerintCase.Description);
-            Assert.Contains(_droppedKerbRequest.ContactPreference, crmCaseParameter.VerintCase.Description);
-        }
+        //     Assert.NotNull(crmCaseParameter);
+        //     Assert.Contains(_droppedKerbRequest.kerbLocation, crmCaseParameter.VerintCase.Description);
+        //     Assert.Contains(_droppedKerbRequest.AccessFor, crmCaseParameter.VerintCase.Description);
+        //     Assert.Contains(_droppedKerbRequest.PropertyOwner, crmCaseParameter.VerintCase.Description);
+        //     Assert.Contains(_droppedKerbRequest.ContactPreference, crmCaseParameter.VerintCase.Description);
+        // }
     }
 }
