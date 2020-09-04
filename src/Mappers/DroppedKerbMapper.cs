@@ -63,8 +63,8 @@ namespace dropped_kerb_service.Mappers
             if (!string.IsNullOrEmpty(kerbRequest.AccessFor))
                 description.Append($"Access for: {kerbRequest.AccessFor}{Environment.NewLine}");
 
-            if (!string.IsNullOrEmpty(kerbRequest.kerbLocation))
-                description.Append($"Location of dropped kerb: {kerbRequest.kerbLocation}{Environment.NewLine}");
+            if (!string.IsNullOrEmpty(kerbRequest.KerbLocation))
+                description.Append($"Location of dropped kerb: {kerbRequest.KerbLocation}{Environment.NewLine}");
 
             if (!string.IsNullOrEmpty(kerbRequest.KerbLocationOther))
                 description.Append($"Other: {kerbRequest.KerbLocationOther}{Environment.NewLine}");

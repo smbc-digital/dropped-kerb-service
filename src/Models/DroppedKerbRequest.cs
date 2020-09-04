@@ -17,7 +17,7 @@ namespace dropped_kerb_service.Models
         [Required]
         public string PropertyOwner { get; set; }
         [Required]
-        public string kerbLocation { get; set; }
+        public string KerbLocation { get; set; }
         [Required]
         public string AccessFor { get; set; }
         [Required]
