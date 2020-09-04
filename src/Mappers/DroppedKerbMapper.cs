@@ -47,7 +47,6 @@ namespace dropped_kerb_service.Mappers
                     Description = model.StreetAddressDroppedKerb.ToString()
                 };
             }
-
             return crmCase;
         }
 
@@ -55,17 +54,26 @@ namespace dropped_kerb_service.Mappers
         {
             StringBuilder description = new StringBuilder();
 
+            if (!string.IsNullOrEmpty(kerbRequest.PlanningReference) && kerbRequest.PlanningPermission == "Yes")
+                description.Append($"Planning application reference number: DC/{kerbRequest.PlanningReference}{Environment.NewLine}");
+
+            if (!string.IsNullOrEmpty(kerbRequest.DischargeReference))
+                description.Append($"Discharge of Conditions reference number: DC/{kerbRequest.DischargeReference}{Environment.NewLine}");
+
+            if (!string.IsNullOrEmpty(kerbRequest.AccessFor))
+                description.Append($"Access for: {kerbRequest.AccessFor}{Environment.NewLine}");
+
             if (!string.IsNullOrEmpty(kerbRequest.kerbLocation))
                 description.Append($"Location of dropped kerb: {kerbRequest.kerbLocation}{Environment.NewLine}");
 
             if (!string.IsNullOrEmpty(kerbRequest.KerbLocationOther))
-                description.Append($"Location of dropped kerb: {kerbRequest.KerbLocationOther}{Environment.NewLine}");
-
-            if (!string.IsNullOrEmpty(kerbRequest.AccessFor))
-                description.Append($"Access for: {kerbRequest.PlanningReference}{Environment.NewLine}");
+                description.Append($"Other: {kerbRequest.KerbLocationOther}{Environment.NewLine}");
 
             if (!string.IsNullOrEmpty(kerbRequest.PropertyOwner))
-                description.Append($"Property owner: {kerbRequest.PlanningPermission}{Environment.NewLine}");
+                description.Append($"Does the customer own the property?: {kerbRequest.PropertyOwner}{Environment.NewLine}");
+
+            if (!string.IsNullOrEmpty(kerbRequest.RedundantAccessDetails))
+                description.Append($"Redundant access details: {kerbRequest.RedundantAccessDetails}{Environment.NewLine}");
 
             if (!string.IsNullOrEmpty(kerbRequest.ContactPreference))
                 description.Append($"Contact preference: {kerbRequest.ContactPreference}{Environment.NewLine}");
