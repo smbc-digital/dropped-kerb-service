@@ -25,6 +25,7 @@ namespace dropped_kerb_service.Helpers
             StreetReportMailModel submissionDetails = new StreetReportMailModel();
             _logger.LogInformation(caseReference, street, person);
             submissionDetails.Subject = "Dropped kerb request - submission";
+            submissionDetails.Reference = caseReference;
             submissionDetails.FormType = FormType.request;
             submissionDetails.ConcerningDescription = "a dropped kerb";
             submissionDetails.StreetInput = street.SelectedAddress;
