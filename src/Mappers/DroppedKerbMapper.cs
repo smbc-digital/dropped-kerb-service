@@ -25,7 +25,7 @@ namespace dropped_kerb_service.Mappers
                     Forename = model.FirstName,
                     Surname = model.LastName,
                     Email = model.ContactPreference == "Email" ? model.Email : model.EmailOptional,
-                    Telephone = model.ContactPreference == "phone" ? model.Phone : model.PhoneOptional,
+                    Telephone = model.ContactPreference == "Phone" ? model.Phone : model.PhoneOptional,
                     Address = new Address
                     {
                         AddressLine1 = model.CustomersAddress.AddressLine1,
