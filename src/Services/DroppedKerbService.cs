@@ -52,16 +52,19 @@ namespace dropped_kerb_service.Services
                 {
                     FirstName = kerbRequest.FirstName,
                     LastName = kerbRequest.LastName,
-                    Email = kerbRequest.Email,
-                    Phone = kerbRequest.Phone
+                    Email = crmCase.Customer.Email,
+                    Phone = crmCase.Customer.Telephone
                 };
 
-                _mailHelper.SendEmail(
-                    person,
-                    EMailTemplate.StreetReport,
-                    response.ResponseContent.VerintCaseReference,
-                    kerbRequest.StreetAddressDroppedKerb);
 
+                if (!string.IsNullOrEmpty(person.Email))
+                {
+                    _mailHelper.SendEmail(
+                        person,
+                        EMailTemplate.StreetReport,
+                        response.ResponseContent.VerintCaseReference,
+                        kerbRequest.StreetAddressDroppedKerb);
+                }
                 return response.ResponseContent.VerintCaseReference;
             }
             catch (Exception ex)
