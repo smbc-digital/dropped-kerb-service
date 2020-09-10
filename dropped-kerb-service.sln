@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dropped_kerb_service", "src\dropped_kerb_service.csproj", "{F17C3DF9-864F-4D72-82F3-08AB1C0DC7E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dropped_kerb_service", "src\dropped_kerb_service.csproj", "{F17C3DF9-864F-4D72-82F3-08AB1C0DC7E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dropped_kerb_service-tests", "tests\dropped_kerb_service-tests.csproj", "{6A9B8ED2-A37A-45DC-89B2-E7C44F5C6587}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dropped_kerb_service-tests", "tests\dropped_kerb_service-tests.csproj", "{6A9B8ED2-A37A-45DC-89B2-E7C44F5C6587}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F17C3DF9-864F-4D72-82F3-08AB1C0DC7E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +41,11 @@ Global
 		{6A9B8ED2-A37A-45DC-89B2-E7C44F5C6587}.Release|x64.Build.0 = Release|Any CPU
 		{6A9B8ED2-A37A-45DC-89B2-E7C44F5C6587}.Release|x86.ActiveCfg = Release|Any CPU
 		{6A9B8ED2-A37A-45DC-89B2-E7C44F5C6587}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3DFE5918-4D46-488E-A4A9-DAB77D350B30}
 	EndGlobalSection
 EndGlobal
