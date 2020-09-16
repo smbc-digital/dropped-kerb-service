@@ -32,7 +32,7 @@ namespace dropped_kerb_service.Mappers
                         AddressLine2 = model.CustomersAddress.AddressLine2,
                         City = model.CustomersAddress.Town,
                         Postcode = model.CustomersAddress.Postcode,
-                        Reference = model.CustomersAddress.PlaceRef,
+                        UPRN = model.CustomersAddress.PlaceRef,
                         Description = model.CustomersAddress.ToString()
                     }
                 }
